@@ -11,6 +11,8 @@ mkDerivation rec {
   executableHaskellDepends = with haskellPackages;
     [ base
       scotty
+      aeson
+      protolude
     ];
 
   description = "description";

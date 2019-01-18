@@ -2,6 +2,7 @@
 module Main (main) where
 
 import Web.Scotty
+import User
 
 import Network.Wai.Middleware.RequestLogger -- install wai-extra if you don't have this
 
@@ -28,6 +29,9 @@ main = scotty 3000 $ do
     -- To demonstrate that routes are matched top-down.
     get "/" $ text "foobar"
     get "/" $ text "barfoo"
+
+    get "/users" $ do
+        json [User "Jon Snow" 23, User {name="James Bond", age=42}]
 
     -- Using a parameter in the query string. If it has
     -- not been given, a 500 page is generated.
