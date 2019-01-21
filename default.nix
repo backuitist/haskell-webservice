@@ -13,6 +13,17 @@ mkDerivation rec {
       scotty
       aeson
       protolude
+      generic-random # to build generic Arbitrary instances
+      hw-kafka-client
+      hspec
+      tasty
+      tasty-discover
+      tasty-hspec
+      tasty-hunit
+      tasty-quickcheck
+      hspec-golden-aeson
+      QuickCheck
+      quickcheck-instances # provides Arb. instances for types such as Text, UUID, ...
     ];
 
   description = "description";

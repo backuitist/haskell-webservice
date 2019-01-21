@@ -6,9 +6,8 @@ Description:         Example programs using @scotty@
 tested-with:         GHC == 7.6.3             
                    , GHC == 8.6.3
 
-executable scotty-basic
-  main-is:             Main.hs
-  other-modules:       User
+Library
+  exposed-modules:     User
   default-language:    Haskell2010
   hs-source-dirs:      src
   default-extensions:   OverloadedStrings
@@ -23,4 +22,42 @@ executable scotty-basic
                        text,
                        wai-extra,
                        protolude
-GHC-options: -Wall -threaded
+  ghc-options: -Wall -fno-warn-orphans
+
+executable scotty-basic
+  main-is:             Main.hs
+  default-language:    Haskell2010
+  hs-source-dirs:      src
+  default-extensions:   OverloadedStrings
+                        , NoImplicitPrelude
+                        , DeriveGeneric
+  build-depends:       base,
+                       scotty-examples
+  ghc-options: -Wall -threaded
+
+test-suite spec
+  type: exitcode-stdio-1.0
+  main-is: Driver.hs
+  hs-source-dirs:
+      test
+  ghc-options: -Wall
+  build-depends:
+      base
+    , tasty
+    , tasty-discover
+    , tasty-hspec
+    , tasty-hunit
+    , tasty-quickcheck
+    , hspec
+    , QuickCheck
+    , quickcheck-instances
+    , aeson
+    , scotty-examples
+    , hspec-golden-aeson
+    , generic-random
+  default-language: Haskell2010
+  default-extensions: OverloadedStrings
+  other-modules:
+      Arbitraries
+      UserSpec
+      DiscoverTest

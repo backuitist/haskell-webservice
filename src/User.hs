@@ -2,7 +2,7 @@ module User where
 
 import Protolude
 
-import Data.Aeson (ToJSON, encode)
+import Data.Aeson (ToJSON, FromJSON)
 import Data.Text (Text)
 import GHC.Generics (Generic)
 
@@ -13,3 +13,4 @@ data User = User
 
 -- Use Aeson to convert user to JSON
 instance ToJSON User
+instance FromJSON User
