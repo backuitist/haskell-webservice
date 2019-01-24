@@ -1,8 +1,8 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Main (main) where
 
 import Web.Scotty
 import User
+import qualified KafkaDemo as K
 
 import Network.Wai.Middleware.RequestLogger -- install wai-extra if you don't have this
 
@@ -15,7 +15,7 @@ import Network.HTTP.Types (status302)
 
 import Data.Text.Lazy.Encoding (decodeUtf8)
 import Data.String (fromString)
-import Prelude
+import Protolude hiding (get, decodeUtf8)
 
 main :: IO ()
 main = scotty 3000 $ do
@@ -32,6 +32,14 @@ main = scotty 3000 $ do
 
     get "/users" $ do
         json [User "Jon Snow" 23, User {name="James Bond", age=42}]
+
+    -- KAFKA DEMO ------------------------------
+
+    post "/kafka/send" $ do
+        _ <- liftAndCatchIO K.sendMessages
+        text "done"
+
+    --------------------------------------------
 
     -- Using a parameter in the query string. If it has
     -- not been given, a 500 page is generated.
@@ -100,6 +108,6 @@ main = scotty 3000 $ do
     -- Make a request to this URI, then type a line in the terminal, which
     -- will be the response. Using ctrl-c will cause getLine to fail.
     -- This demonstrates that IO exceptions are lifted into ActionM exceptions.
-    get "/iofail" $ do
-        msg <- liftIO $ liftM fromString getLine
-        text msg
+    -- get "/iofail" $ do
+    --    msg <- liftIO $ liftM fromString getLine
+    --    text msg

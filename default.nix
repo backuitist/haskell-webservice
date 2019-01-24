@@ -12,6 +12,8 @@ mkDerivation rec {
     [ base
       scotty
       aeson
+      # aeson-extra does not build... (looks like a dependency version conflict with tasty)      
+      bytestring
       protolude
       generic-random # to build generic Arbitrary instances
       hw-kafka-client

@@ -1,10 +1,9 @@
 module User where
 
-import Protolude
-
 import Data.Aeson (ToJSON, FromJSON)
 import Data.Text (Text)
 import GHC.Generics (Generic)
+import Protolude
 
 data User = User
   { name :: Text
