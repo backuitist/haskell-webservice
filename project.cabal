@@ -21,11 +21,13 @@ library
                        mtl,
                        random,
                        scotty,
+                       streamly,
                        aeson,
                        text,
                        wai-extra,
                        hw-kafka-client,
                        protolude
+                       -- aeson-extra does not build... (looks like a dependency version conflict with tasty)      
   ghc-options: -Wall -fno-warn-orphans
 
 executable webapp
@@ -55,10 +57,12 @@ test-suite spec
     , tasty-quickcheck
     , hspec
     , QuickCheck
+    -- provides Arb. instances for types such as Text, UUID, ...
     , quickcheck-instances
     , aeson
     , scotty-examples
     , hspec-golden-aeson
+    -- to build generic Arbitrary instances    
     , generic-random
   default-language: Haskell2010
   default-extensions: OverloadedStrings
